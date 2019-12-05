@@ -21,7 +21,8 @@ I have added "anrtest" app to generate 3 different type of ANR in application. I
 Use this app to generate ANR. Then Collect the logs (ANR trace, logcat logs, system logs) and analyse it. It will help you in ANR
 debugging. For collecting logs you can follow [my blogs](http://saurabhsharma123k.blogspot.com/2018/03/know-android-logs-analysis.html)
 below i am adding app screenshot
-![ANR APP Screen Shot](https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/anr_test_app.png)
+![ANR APP Screen Shot](https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/anr_test_app.png = 250x250)
+
 
 
 

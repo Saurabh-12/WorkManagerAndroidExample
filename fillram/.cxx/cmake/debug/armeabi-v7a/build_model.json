@@ -1,0 +1,70 @@
+{
+  "variant": {
+    "module": {
+      "rootBuildGradleFolder": "/home/saurabh/AndroidStudioProjects/MyApplication",
+      "sdkFolder": "/home/saurabh/Android/Sdk",
+      "isNativeCompilerSettingsCacheEnabled": false,
+      "isBuildOnlyTargetAbiEnabled": true,
+      "splitsAbiFilterSet": [],
+      "intermediatesFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/build/intermediates",
+      "gradleModulePathName": ":fillram",
+      "moduleRootFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram",
+      "makeFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "compilerSettingsCacheFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/.cxx",
+      "cxxFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx",
+      "ndkFolder": "/home/saurabh/Android/Sdk/ndk-bundle",
+      "ndkVersion": "20.1.5948944",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "cmakeToolchainFile": "."
+    },
+    "buildSystemArgumentList": [],
+    "cFlagList": [],
+    "cppFlagsList": [],
+    "variantName": "debug",
+    "soFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/build/intermediates/cmake/debug/lib",
+    "objFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/build/intermediates/cmake/debug/obj",
+    "jsonFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug",
+    "gradleBuildOutputFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug",
+    "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": []
+  },
+  "abi": "ARMEABI_V7A",
+  "abiPlatformVersion": 22,
+  "cxxBuildFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/armeabi-v7a",
+  "jsonFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/armeabi-v7a/android_gradle_build.json",
+  "gradleBuildOutputFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug/armeabi-v7a",
+  "objFolder": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/build/intermediates/cmake/debug/obj/armeabi-v7a",
+  "buildCommandFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/armeabi-v7a/build_command.txt",
+  "buildOutputFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/armeabi-v7a/build_output.txt",
+  "modelOutputFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/armeabi-v7a/build_model.json",
+  "cmake": {
+    "cmakeListsWrapperFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug/armeabi-v7a/CMakeLists.txt",
+    "toolchainWrapperFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug/armeabi-v7a/android_gradle_build.toolchain.cmake",
+    "buildGenerationStateFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug/armeabi-v7a/build_generation_state.json",
+    "cacheKeyFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug/armeabi-v7a/compiler_cache_key.json",
+    "compilerCacheUseFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug/armeabi-v7a/compiler_cache_use.json",
+    "compilerCacheWriteFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug/armeabi-v7a/compiler_cache_write.json",
+    "toolchainSettingsFromCacheFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cxx/debug/armeabi-v7a/compiler_settings_cache.cmake",
+    "cmakeWrappingBaseFolder": "."
+  },
+  "jsonGenerationLoggingRecordFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/armeabi-v7a/json_generation_record.json",
+  "compileCommandsJsonFile": "/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/armeabi-v7a/compile_commands.json"
+}

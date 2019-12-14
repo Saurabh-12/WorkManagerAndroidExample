@@ -1,0 +1,3 @@
+/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/x86/CMakeFiles/rebuild_cache.dir
+/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/x86/CMakeFiles/edit_cache.dir
+/home/saurabh/AndroidStudioProjects/MyApplication/fillram/.cxx/cmake/debug/x86/CMakeFiles/native-lib.dir

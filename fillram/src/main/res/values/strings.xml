@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">FillRAM</string>
+    <string name="action_settings">Settings</string>
+    <string name="url_play_store">http://saurabhsharma123k.blogspot.com/</string>
+    <string name="url_github">https://github.com/Saurabh-12/</string>
+    <string name="url_share">@string/url_play_store</string>
+
+    <string name="action_share">Share</string>
+    <string name="action_github">Github</string>
+
+    <string name="nav_memory">Memory</string>
+
+    <string name="memory_title_total">Total:</string>
+    <string name="memory_title_free">Free:</string>
+    <string name="memory_title_low">Low Memory:</string>
+
+    <string name="memory_arc_bottom">FREE RAM</string>
+    <string name="memory_arc_subtitle">%1$d MB / %2$d MB</string>
+
+    <string name="memory_fill_start">Fill Memory</string>
+    <string name="memory_fill_stop">Stop</string>
+    <string name="app_name_short">Fill RAM App3</string>
+</resources>

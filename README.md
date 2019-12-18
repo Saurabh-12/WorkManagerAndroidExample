@@ -25,6 +25,19 @@ below i am adding app screenshot
 <a href="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/anr_test_app.png">
 <img src="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/anr_test_app.png" height="500" width="300" ></a>
 
+# 5. Fill RAM Test application
+I have added "fillram" app
+   - to test device RAM size and current uses
+   - by clicking "Fill Memory" button app start filling Device RAM with given rate (33 MB/10 sec)
+   - Within few minute this app eat all your Device RAM and create LMK in Android BSP/Framework side
+   - Once LMK triggered it kill all running app and services
+   - This will be ideal case for your app behavior testing at low memory condition
+   ![Blogs](http://saurabhsharma123k.blogspot.com/)
+ below i am adding app screenshot. I am going to add a ![Blog](http://saurabhsharma123k.blogspot.com/) on working of this app in details.
+ <a href="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/fill_ram_app.png">
+ <img src="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/fill_ram_app.png" height="500" width="300" ></a>
+
+
 
 
 

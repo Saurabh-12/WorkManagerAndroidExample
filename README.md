@@ -22,7 +22,8 @@ Use this app to generate ANR. Then Collect the logs (ANR trace, logcat logs, sys
 debugging. For collecting logs you can follow [my blogs](http://saurabhsharma123k.blogspot.com/2018/03/know-android-logs-analysis.html)
 below i am adding app screenshot
 
-<a href="ANR"><img src="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/anr_test_app.png" height="250" width="250" ></a>
+<a href="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/anr_test_app.png">
+<img src="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/anr_test_app.png" height="500" width="300" ></a>
 
 
 

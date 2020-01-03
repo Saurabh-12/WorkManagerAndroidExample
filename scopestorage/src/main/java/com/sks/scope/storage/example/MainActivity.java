@@ -9,30 +9,30 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Locale;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     public static final int TAKE_PHOTO = 10101;
@@ -65,24 +65,8 @@ public class MainActivity extends AppCompatActivity {
         }
         String status= Environment.getExternalStorageState();
         if(status.equals(Environment.MEDIA_MOUNTED)) {
-            File outputImage = new File(getExternalCacheDir(), "output_image.jpg");
-            try {
-                if (outputImage.exists()) {
-                    outputImage.delete();
-                }
-                outputImage.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (Build.VERSION.SDK_INT >= 24) {
-                imageUri = FileProvider.getUriForFile(this,
-                        "com.sks.scope.storage.example.fileProvider", outputImage);
-            } else {
-                imageUri = Uri.fromFile(outputImage);
-            }
             //Taking image via camera Intent
             Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-            //      intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intent, TAKE_PHOTO);
         }else
         {
@@ -106,9 +90,10 @@ public class MainActivity extends AppCompatActivity {
      * How to open an album
      * */
     private void openAlbum() {
-        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
-        startActivityForResult(intent,SELECT_PHOTO);
+        startActivityForResult(intent, SELECT_PHOTO);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -118,31 +103,15 @@ public class MainActivity extends AppCompatActivity {
             case TAKE_PHOTO :
                 if (resultCode == RESULT_OK) {
 
-                    String name= "hello.jpg";
+                    String picName= "hello.jpg";
                     Bundle bundle = data.getExtras();
                     //Get the data returned by the camera and convert it to picture format
                     Bitmap bitmap = (Bitmap)bundle.get("data");
-                        File file = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                      // File file = new File("/storage/emulated/0/Android/data/com.example.writepicture/files/Pictures/");
-                       // File file = new File("/sdcard/sks/");
-                    //File file = new File(Environment.getExternalStorageDirectory(), "saurabh");
-                    if(!file.exists()){
-                        file.mkdirs();
-                    }
-                    String filename=file.getPath()+"/"+name;
-                    try {
-                        fout = new FileOutputStream(filename);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fout);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }finally{
-                        try {
-                            fout.flush();
-                            fout.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                    String path = MediaStore.Images.Media.insertImage(getContentResolver(),
+                            bitmap, picName, "Saurabh");
+                    Log.d("Saurabh", "Path "+path);
                     imageview.setImageBitmap(bitmap);
                 }
                 break;
@@ -166,15 +135,15 @@ public class MainActivity extends AppCompatActivity {
      * */
     private void handleImageBeforeKitKat(Intent data) {
         Uri uri = data.getData();
-        String imagePath = getImagePath(uri,null);
-        displayImage(imagePath);
+        Bitmap bitmap = getBitmapImage(uri,null);
+        displayImage(bitmap);
     }
     /**
      * 4.4 And above systems for processing pictures
      * */
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void handleImgeOnKitKat(Intent data) {
-        String imagePath = null;
+        Bitmap bitmap = null;
         Uri uri = data.getData();
         if (DocumentsContract.isDocumentUri(this,uri)) {
             //If it is a document type uri, it is processed through the document id
@@ -183,29 +152,30 @@ public class MainActivity extends AppCompatActivity {
                 //Parse out the id in numeric format
                 String id = docId.split(":")[1];
                 String selection = MediaStore.Images.Media._ID + "=" + id;
-                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
+                bitmap = getBitmapImage(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
             }else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
                 Uri contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"),Long.valueOf(docId));
-                imagePath = getImagePath(contentUri,null);
+                bitmap = getBitmapImage(contentUri,null);
             }else if ("content".equalsIgnoreCase(uri.getScheme())) {
                 //If it is a content type uri, it is processed in the normal way
-                imagePath = getImagePath(uri,null);
+                bitmap = getBitmapImage(uri,null);
             }else if ("file".equalsIgnoreCase(uri.getScheme())) {
                 //If it is a file type uri, you can directly get the picture path
-                imagePath = uri.getPath();
+                String imagePath = uri.getPath();
+                Bitmap btmp = BitmapFactory.decodeFile(imagePath);
+                imageview.setImageBitmap(btmp);
             }
             //Show pictures based on picture path
             //    imagePath = "/sdcard/writepicture/hello.jpg";
-            displayImage(imagePath);
+            displayImage(bitmap);
         }
     }
     /**
      * Method for displaying pictures according to picture path
      * */
-    private void displayImage(String imagePath) {
-        if (imagePath != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+    private void displayImage(Bitmap bitmap) {
+        if (bitmap != null) {
             imageview.setImageBitmap(bitmap);
         }else {
             Toast.makeText(MainActivity.this,"failed to get image", Toast.LENGTH_SHORT).show();
@@ -213,17 +183,24 @@ public class MainActivity extends AppCompatActivity {
     }
     /**
      * Get real picture path by uri and selection
-     * */
-    private String getImagePath(Uri uri,String selection) {
-        String path = null;
-        Cursor cursor = getContentResolver().query(uri,null,selection,null,null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+     *
+     * @return*/
+    private Bitmap getBitmapImage(Uri uri, String selection) {
+        InputStream inputStream = null;
+        Bitmap image = null;
+        Cursor cursor = null;
+        try {
+            cursor = getContentResolver().query(uri, null, selection, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String imagePath =  cursor.getString(column_index);
+            image = BitmapFactory.decodeFile(imagePath);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
             }
-            cursor.close();
         }
-        return path;
+        return image;
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

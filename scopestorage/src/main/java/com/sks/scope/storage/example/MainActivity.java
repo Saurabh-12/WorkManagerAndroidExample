@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
      * How to open an album
      * */
     private void openAlbum() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
         startActivityForResult(intent, SELECT_PHOTO);
@@ -145,31 +146,24 @@ public class MainActivity extends AppCompatActivity {
     private void handleImgeOnKitKat(Intent data) {
         Bitmap bitmap = null;
         Uri uri = data.getData();
-        if (DocumentsContract.isDocumentUri(this,uri)) {
-            //If it is a document type uri, it is processed through the document id
-            String docId = DocumentsContract.getDocumentId(uri);
-            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                //Parse out the id in numeric format
-                String id = docId.split(":")[1];
-                String selection = MediaStore.Images.Media._ID + "=" + id;
-                bitmap = getBitmapImage(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
-            }else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-                Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"),Long.valueOf(docId));
-                bitmap = getBitmapImage(contentUri,null);
-            }else if ("content".equalsIgnoreCase(uri.getScheme())) {
-                //If it is a content type uri, it is processed in the normal way
-                bitmap = getBitmapImage(uri,null);
-            }else if ("file".equalsIgnoreCase(uri.getScheme())) {
-                //If it is a file type uri, you can directly get the picture path
-                String imagePath = uri.getPath();
-                Bitmap btmp = BitmapFactory.decodeFile(imagePath);
-                imageview.setImageBitmap(btmp);
+        // Loading the image is going to require some sort of I/O, which must occur off the UI
+        // thread.  Changing the ImageView to display the image must occur ON the UI thread.
+        // The easiest way to divide up this labor is with an AsyncTask.  The doInBackground
+        // method will run in a separate thread, but onPostExecute will run in the main
+        // UI thread.
+        AsyncTask<Uri, Void, Bitmap> imageLoadAsyncTask = new AsyncTask<Uri, Void, Bitmap>() {
+            @Override
+            protected Bitmap doInBackground(Uri... uris) {
+               // dumpImageMetaData(uris[0]);
+                return getBitmapFromUri(uris[0]);
             }
-            //Show pictures based on picture path
-            //    imagePath = "/sdcard/writepicture/hello.jpg";
-            displayImage(bitmap);
-        }
+
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                imageview.setImageBitmap(bitmap);
+            }
+        };
+        imageLoadAsyncTask.execute(uri);
     }
     /**
      * Method for displaying pictures according to picture path
@@ -221,6 +215,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    /** Create a Bitmap from the URI for that image and return it.
+     *
+     * @param uri the Uri for the image to return.
+     */
+    private Bitmap getBitmapFromUri(Uri uri) {
+        ParcelFileDescriptor parcelFileDescriptor = null;
+        try {
+            parcelFileDescriptor = getContentResolver().openFileDescriptor(uri, "r");
+            FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+            Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+            parcelFileDescriptor.close();
+            return image;
+        } catch (Exception e) {
+            Log.e("Saurabh", "Failed to load image.", e);
+            return null;
+        } finally {
+            try {
+                if (parcelFileDescriptor != null) {
+                    parcelFileDescriptor.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("saurabh", "Error closing ParcelFile Descriptor");
+            }
+        }
+    }
+
 
 
 }

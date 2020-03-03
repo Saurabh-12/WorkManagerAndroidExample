@@ -37,7 +37,7 @@ import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     public static final int TAKE_PHOTO = 10101;
-    public static final int SELECT_PHOTO = 20202;
+    public static final int SELECT_PHOTO = 2020;
     private ImageView imageview;
     private Uri imageUri;
 
@@ -59,42 +59,36 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void take_photo() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-        }
-        String status= Environment.getExternalStorageState();
-        if(status.equals(Environment.MEDIA_MOUNTED)) {
-            //Taking image via camera Intent
-            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-            startActivityForResult(intent, TAKE_PHOTO);
-        }else
-        {
-
-            Toast.makeText(MainActivity.this, "No memory card",Toast.LENGTH_LONG).show();
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, TAKE_PHOTO);
         }
     }
     /**
      * Get pictures from album
      * */
     public void select_photo() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-        }else {
             openAlbum();
-        }
     }
     /**
      * How to open an album
      * */
     private void openAlbum() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        // BEGIN_INCLUDE (use_open_document_intent)
+        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file browser.
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+
+        // Filter to only show results that can be "opened", such as a file (as opposed to a list
+        // of contacts or timezones)
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        // Filter to show only images, using the image MIME data type.
+        // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
+        // To search for all documents available via installed storage providers, it would be
+        // "*/*".
         intent.setType("image/*");
         startActivityForResult(intent, SELECT_PHOTO);
+        // END_INCLUDE (use_open_document_intent)
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

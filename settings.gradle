@@ -1,1 +1,1 @@
-include ':app', ':workMgrExmp', ':alaramexamp', ':anrtest', ':fillram', ':scopestorage'
+include ':app', ':workMgrExmp', ':alaramexamp', ':anrtest', ':fillram', ':scopestorage', "pingip"

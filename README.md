@@ -34,7 +34,7 @@ I have added "fillram" app
    - This will be ideal case for your app behavior testing at low memory condition
 
 
- below i am adding app screenshot. 
+ Below i am adding app screenshot. 
  Visit my blog <a href="http://saurabhsharma123k.blogspot.com/">[Blog]</a> for more details.
  
  
@@ -44,7 +44,7 @@ I have added "fillram" app
  
  
  
- # 6. Android Ping an IP Address app
+ # 6. Ping an IP Address in Android
  Ping any given ap address using android API without rooting device.
  
      - Ping is a network utility used to test achievable of an IP address or a host

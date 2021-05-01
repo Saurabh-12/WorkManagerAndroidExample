@@ -34,9 +34,19 @@ I have added "fillram" app
    - This will be ideal case for your app behavior testing at low memory condition
 
  below i am adding app screenshot. 
- I am going to add a <a href="http://saurabhsharma123k.blogspot.com/">[Blog]</a> on working of this app in details.
+ Visit my blog <a href="http://saurabhsharma123k.blogspot.com/">[Blog]</a> for more details.
  <a href="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/fill_ram_app.png">
  <img src="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/fill_ram_app.png" height="500" width="300" ></a>
+ 
+ # 6. Android Ping an IP Address app
+ Ping any given ap address using android API without rooting device.
+     - Ping is a network utility used to test achievable of an IP address or a host. 
+     - It can measure the packet trip time which is called latency.
+
+ Below i am adding app screenshot. 
+ Visit my blog <a href="https://saurabhsharma123k.blogspot.com/2021/04/ping-ip-address-device-is-connected-to.html">[Blog]</a>for more details.
+ <a href="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/ping_ip_address.png">
+ <img src="https://github.com/Saurabh-12/WorkManagerAndroidExample/blob/master/ping_ip_address.png" height="500" width="300" ></a>
 
 
 

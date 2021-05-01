@@ -27,6 +27,7 @@ public class MyPingService extends Service {
     int count = 0;
     SharedPreferences sharedPref;
     int defaultValue = 2;
+    boolean stopHandler = false;
 
     @Nullable
     @Override
@@ -74,6 +75,7 @@ public class MyPingService extends Service {
 
     @Override
     public void onDestroy() {
+        stopHandler = true;
         stopSelf();
         super.onDestroy();
     }
@@ -124,12 +126,13 @@ public class MyPingService extends Service {
                         Log.d(LOG_TAG, "ping is reachable");
                     else
                         Log.d(LOG_TAG, "ping is not reachable");
-                    h.postDelayed(this, delay);
                 }else {
                     if (pingToServer(getGatewayIP()))
                         Log.d(LOG_TAG, "ping is reachable");
                     else
                         Log.d(LOG_TAG, "ping is not reachable");
+                }
+                if (!stopHandler) {
                     h.postDelayed(this, delay);
                 }
             }

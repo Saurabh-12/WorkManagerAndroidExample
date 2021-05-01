@@ -15,15 +15,14 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:textStyle="bold"
-        android:text="hkhkhikh"
+        android:text="WiFi Details"
         android:textColor="@color/black"
         android:layout_gravity="center"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -33,12 +32,31 @@
         android:id="@+id/ping_ip_address_etx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:hint="172.217.10.67"
         android:textColor="@color/black"
         android:ems="10"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Default 2 ping/min Maximum 10"/>
+
+    <EditText
+        android:id="@+id/ping_count_etx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:inputType="numberSigned"
+        android:hint="2"
+        android:ems="5"
+        android:textColor="@color/black"/>
 
     <Button
         android:id="@+id/start_ping_btn"

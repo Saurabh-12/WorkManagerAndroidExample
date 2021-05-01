@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String PingCount = "PingCount";
     SharedPreferences sharedpreferences;
     private EditText ipAddress;
+    private EditText pingCountEtx;
     PendingIntent pintent;
     AlarmManager alarm;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ipAddress = (EditText)findViewById(R.id.ping_ip_address_etx);
+        pingCountEtx = (EditText)findViewById(R.id.ping_count_etx);
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         Intent intent = getIntent();
@@ -140,12 +142,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void startPing(View view) {
         String hostIp = ipAddress.getText().toString().trim();
+        int pingCountEditText = Integer.valueOf(pingCountEtx.getText().toString().trim());
         boolean isIpAddress = Patterns.IP_ADDRESS.matcher(hostIp).matches();
         if(isIpAddress){
             hostIp = ipAddress.getText().toString().trim();
         }else{
             hostIp = intToIp(d.gateway);
         }
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt(PingCount, pingCountEditText);
+        editor.commit();
+
         Intent serviceIntent = new Intent(MainActivity.this, MyPingService.class);
         serviceIntent.putExtra("hostIp", hostIp);
 /*

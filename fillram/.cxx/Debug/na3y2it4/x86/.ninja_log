@@ -1,0 +1,6 @@
+# ninja log v5
+0	363	1695570240348095874	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	447c233093394b49
+364	449	1695570240432098017	../../../../build/intermediates/cxx/Debug/na3y2it4/obj/x86/libnative-lib.so	4ce89f87de983a07
+0	5	0	clean	d054435758d5a81c
+0	397	1695741767240636361	CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o	447c233093394b49
+397	668	1695741767508646431	../../../../build/intermediates/cxx/Debug/na3y2it4/obj/x86/libnative-lib.so	4ce89f87de983a07

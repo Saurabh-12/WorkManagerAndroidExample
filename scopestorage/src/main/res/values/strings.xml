@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ScopeStorage</string>
+    <string name="intro_message">into message</string>
+    <string name="sample_action">Action</string>
 </resources>

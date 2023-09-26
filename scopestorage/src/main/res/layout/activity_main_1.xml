@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/sample_output"
-            style="@style/Widget.SampleMessage"
+            style="@style/Widget.AppCompat.TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/log_fragment"
-        android:name="com.example.android.common.logger.LogFragment"
+        android:name="com.sks.scope.storage.example.LogFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />

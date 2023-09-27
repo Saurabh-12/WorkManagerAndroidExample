@@ -91,12 +91,12 @@ public class MemoryFragment extends BaseFragment {
          Log.d("ECRT ", "Delay msg: "+delay);
          if(delay == null || delay.equals(""))
          {
-             Toast.makeText(mActivity, "Please grant SDcard Read permission " +
-                     "by going Setting >> app>>Permission", Toast.LENGTH_SHORT).show();
+             //Toast.makeText(mActivity, "Please grant SDcard Read permission " +
+               //      "by going Setting >> app>>Permission", Toast.LENGTH_SHORT).show();
          }else if(delay.equals("NoFile")){
              Log.d("ECRT ", "No config file for Delay ! going with byDefaultValue");
-             Toast.makeText(mActivity, "Please grant SDcard Read permission " +
-                     "by going Setting >> app>>Permission", Toast.LENGTH_SHORT).show();
+             //Toast.makeText(mActivity, "Please grant SDcard Read permission " +
+                //     "by going Setting >> app>>Permission", Toast.LENGTH_SHORT).show();
          }else{
              String [] spiltData = delay.split("=");
              if(spiltData[4].trim() != null && spiltData[5].trim() != null)
